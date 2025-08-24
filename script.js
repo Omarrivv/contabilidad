@@ -201,6 +201,7 @@ function initializeCalculator() {
     }
 
     mostrarResultado(resultado, "success");
+    mostrarTablaBalance();
   }
 
   function verificarBalance() {
@@ -226,12 +227,14 @@ function initializeCalculator() {
       resultado += `S/ ${activos.toLocaleString()} = S/ ${pasivos.toLocaleString()} + S/ ${patrimonio.toLocaleString()}<br>`;
       resultado += `${activos.toLocaleString()} = ${sumaDerechos.toLocaleString()}`;
       mostrarResultado(resultado, "success");
+      mostrarTablaBalance();
     } else {
       resultado = `❌ <strong>Balance incorrecto</strong><br>`;
       resultado += `S/ ${activos.toLocaleString()} ≠ S/ ${pasivos.toLocaleString()} + S/ ${patrimonio.toLocaleString()}<br>`;
       resultado += `${activos.toLocaleString()} ≠ ${sumaDerechos.toLocaleString()}<br>`;
       resultado += `Diferencia: S/ ${diferencia.toLocaleString()}`;
       mostrarResultado(resultado, "error");
+      mostrarTablaBalance();
     }
   }
 
@@ -241,6 +244,7 @@ function initializeCalculator() {
     patrimonioInput.value = "";
     resultado.innerHTML = "";
     resultado.className = "result-display";
+    ocultarTablaBalance();
   }
 
   function mostrarResultado(mensaje, tipo) {
@@ -346,6 +350,7 @@ function initializeExercises() {
 
     document.getElementById("respuesta-usuario").value = "";
     document.getElementById("resultado-ejercicio").innerHTML = "";
+    ocultarTablaBalanceEjercicio();
   }
 
   function verificarRespuesta() {
@@ -387,6 +392,7 @@ function initializeExercises() {
       estadisticas.correctas++;
       document.getElementById("resultado-ejercicio").className =
         "exercise-result success";
+      mostrarTablaBalanceEjercicio();
     } else {
       resultadoHTML = `❌ <strong>Incorrecto</strong><br>`;
       resultadoHTML += `Tu respuesta: S/ ${respuestaUsuario.toLocaleString()}<br>`;
@@ -555,3 +561,404 @@ additionalStyles.textContent = `
     }
 `;
 document.head.appendChild(additionalStyles);
+
+// Funciones para la tabla de balance
+function mostrarTablaBalance() {
+  const activosInput = document.getElementById("activos");
+  const pasivosInput = document.getElementById("pasivos");
+  const patrimonioInput = document.getElementById("patrimonio");
+
+  const activos = parseFloat(activosInput.value) || 0;
+  const pasivos = parseFloat(pasivosInput.value) || 0;
+  const patrimonio = parseFloat(patrimonioInput.value) || 0;
+
+  if (activos === 0 && pasivos === 0 && patrimonio === 0) {
+    ocultarTablaBalance();
+    return;
+  }
+
+  // Mostrar la tabla
+  const tablaBalance = document.getElementById("tabla-balance");
+  tablaBalance.style.display = "block";
+
+  // Llenar los datos de la tabla
+  llenarDatosTabla(activos, pasivos, patrimonio);
+
+  // Animación de entrada
+  setTimeout(() => {
+    tablaBalance.style.opacity = "0";
+    tablaBalance.style.transform = "translateY(20px)";
+    tablaBalance.style.transition = "all 0.6s ease";
+
+    setTimeout(() => {
+      tablaBalance.style.opacity = "1";
+      tablaBalance.style.transform = "translateY(0)";
+    }, 100);
+  }, 200);
+}
+
+function llenarDatosTabla(activos, pasivos, patrimonio) {
+  // Datos de ejemplo para activos (puedes personalizar estos)
+  const activosItems = [
+    { nombre: "Caja y Bancos", valor: Math.round(activos * 0.2) },
+    { nombre: "Cuentas por Cobrar", valor: Math.round(activos * 0.3) },
+    { nombre: "Inventarios", valor: Math.round(activos * 0.25) },
+    {
+      nombre: "Propiedad, Planta y Equipo",
+      valor: activos - Math.round(activos * 0.75),
+    },
+  ];
+
+  // Datos de ejemplo para pasivos
+  const pasivosItems = [
+    { nombre: "Cuentas por Pagar", valor: Math.round(pasivos * 0.6) },
+    {
+      nombre: "Préstamos Bancarios",
+      valor: pasivos - Math.round(pasivos * 0.6),
+    },
+  ];
+
+  // Datos de ejemplo para patrimonio
+  const patrimonioItems = [
+    { nombre: "Capital Social", valor: Math.round(patrimonio * 0.8) },
+    {
+      nombre: "Utilidades Retenidas",
+      valor: patrimonio - Math.round(patrimonio * 0.8),
+    },
+  ];
+
+  // Llenar activos
+  const activosContainer = document.getElementById("activos-items");
+  activosContainer.innerHTML = "";
+  activosItems.forEach((item, index) => {
+    if (item.valor > 0) {
+      const itemElement = document.createElement("div");
+      itemElement.className = "balance-item";
+      itemElement.style.animationDelay = `${index * 0.1}s`;
+      itemElement.innerHTML = `
+        <span class="item-name">${item.nombre}</span>
+        <span class="item-value">S/ ${item.valor.toLocaleString()}</span>
+      `;
+      activosContainer.appendChild(itemElement);
+    }
+  });
+
+  // Llenar pasivos
+  const pasivosContainer = document.getElementById("pasivos-items");
+  pasivosContainer.innerHTML = "";
+  pasivosItems.forEach((item, index) => {
+    if (item.valor > 0) {
+      const itemElement = document.createElement("div");
+      itemElement.className = "balance-item";
+      itemElement.style.animationDelay = `${index * 0.1}s`;
+      itemElement.innerHTML = `
+        <span class="item-name">${item.nombre}</span>
+        <span class="item-value">S/ ${item.valor.toLocaleString()}</span>
+      `;
+      pasivosContainer.appendChild(itemElement);
+    }
+  });
+
+  // Llenar patrimonio
+  const patrimonioContainer = document.getElementById("patrimonio-items");
+  patrimonioContainer.innerHTML = "";
+  patrimonioItems.forEach((item, index) => {
+    if (item.valor > 0) {
+      const itemElement = document.createElement("div");
+      itemElement.className = "balance-item";
+      itemElement.style.animationDelay = `${index * 0.1}s`;
+      itemElement.innerHTML = `
+        <span class="item-name">${item.nombre}</span>
+        <span class="item-value">S/ ${item.valor.toLocaleString()}</span>
+      `;
+      patrimonioContainer.appendChild(itemElement);
+    }
+  });
+
+  // Actualizar totales
+  document.getElementById(
+    "total-activos"
+  ).textContent = `S/ ${activos.toLocaleString()}`;
+  document.getElementById(
+    "total-pasivos"
+  ).textContent = `S/ ${pasivos.toLocaleString()}`;
+  document.getElementById(
+    "total-patrimonio"
+  ).textContent = `S/ ${patrimonio.toLocaleString()}`;
+  document.getElementById("total-pasivos-patrimonio").textContent = `S/ ${(
+    pasivos + patrimonio
+  ).toLocaleString()}`;
+
+  // Actualizar verificación
+  document.getElementById(
+    "verify-activos"
+  ).textContent = `S/ ${activos.toLocaleString()}`;
+  document.getElementById("verify-pasivos-patrimonio").textContent = `S/ ${(
+    pasivos + patrimonio
+  ).toLocaleString()}`;
+
+  // Estado de verificación
+  const verificationStatus = document.getElementById("verification-status");
+  const diferencia = Math.abs(activos - (pasivos + patrimonio));
+
+  if (diferencia < 0.01) {
+    verificationStatus.innerHTML =
+      "✅ <strong>¡Balance Equilibrado!</strong><br>La ecuación contable está balanceada correctamente.";
+    verificationStatus.className = "verification-status balanced";
+  } else {
+    verificationStatus.innerHTML = `❌ <strong>Balance Desequilibrado</strong><br>Diferencia: S/ ${diferencia.toLocaleString()}`;
+    verificationStatus.className = "verification-status unbalanced";
+  }
+}
+
+function ocultarTablaBalance() {
+  const tablaBalance = document.getElementById("tabla-balance");
+  tablaBalance.style.display = "none";
+}
+
+// Función para generar datos más realistas basados en el tipo de empresa
+function generarDatosRealisticos(activos, pasivos, patrimonio) {
+  // Esta función se puede expandir para generar datos más específicos
+  // basados en diferentes tipos de empresas o industrias
+  return {
+    activos: [
+      { nombre: "Efectivo y Equivalentes", valor: Math.round(activos * 0.15) },
+      { nombre: "Cuentas por Cobrar", valor: Math.round(activos * 0.25) },
+      { nombre: "Inventarios", valor: Math.round(activos * 0.3) },
+      { nombre: "Activos Fijos", valor: Math.round(activos * 0.3) },
+    ],
+    pasivos: [
+      { nombre: "Proveedores", valor: Math.round(pasivos * 0.4) },
+      { nombre: "Préstamos a Corto Plazo", valor: Math.round(pasivos * 0.35) },
+      { nombre: "Obligaciones Laborales", valor: Math.round(pasivos * 0.25) },
+    ],
+    patrimonio: [
+      { nombre: "Capital Pagado", valor: Math.round(patrimonio * 0.7) },
+      { nombre: "Reservas", valor: Math.round(patrimonio * 0.15) },
+      {
+        nombre: "Utilidades del Ejercicio",
+        valor: Math.round(patrimonio * 0.15),
+      },
+    ],
+  };
+}
+// Funciones para la tabla de balance en ejercicios
+function mostrarTablaBalanceEjercicio() {
+  if (!ejercicioActual) return;
+
+  const { activos, pasivos, patrimonio } = ejercicioActual;
+
+  // Mostrar la tabla
+  const tablaBalance = document.getElementById("tabla-balance-ejercicio");
+  tablaBalance.style.display = "block";
+
+  // Llenar los datos de la tabla
+  llenarDatosTablaEjercicio(activos, pasivos, patrimonio);
+
+  // Animación de entrada
+  setTimeout(() => {
+    tablaBalance.style.opacity = "0";
+    tablaBalance.style.transform = "translateY(20px)";
+    tablaBalance.style.transition = "all 0.6s ease";
+
+    setTimeout(() => {
+      tablaBalance.style.opacity = "1";
+      tablaBalance.style.transform = "translateY(0)";
+    }, 100);
+  }, 500); // Delay para que aparezca después del resultado
+}
+
+function llenarDatosTablaEjercicio(activos, pasivos, patrimonio) {
+  // Generar datos más variados para ejercicios
+  const activosItems = generarActivosEjercicio(activos);
+  const pasivosItems = generarPasivosEjercicio(pasivos);
+  const patrimonioItems = generarPatrimonioEjercicio(patrimonio);
+
+  // Llenar activos
+  const activosContainer = document.getElementById("activos-items-ejercicio");
+  activosContainer.innerHTML = "";
+  activosItems.forEach((item, index) => {
+    if (item.valor > 0) {
+      const itemElement = document.createElement("div");
+      itemElement.className = "balance-item";
+      itemElement.style.animationDelay = `${index * 0.1}s`;
+      itemElement.innerHTML = `
+        <span class="item-name">${item.nombre}</span>
+        <span class="item-value">S/ ${item.valor.toLocaleString()}</span>
+      `;
+      activosContainer.appendChild(itemElement);
+    }
+  });
+
+  // Llenar pasivos
+  const pasivosContainer = document.getElementById("pasivos-items-ejercicio");
+  pasivosContainer.innerHTML = "";
+  pasivosItems.forEach((item, index) => {
+    if (item.valor > 0) {
+      const itemElement = document.createElement("div");
+      itemElement.className = "balance-item";
+      itemElement.style.animationDelay = `${index * 0.1}s`;
+      itemElement.innerHTML = `
+        <span class="item-name">${item.nombre}</span>
+        <span class="item-value">S/ ${item.valor.toLocaleString()}</span>
+      `;
+      pasivosContainer.appendChild(itemElement);
+    }
+  });
+
+  // Llenar patrimonio
+  const patrimonioContainer = document.getElementById(
+    "patrimonio-items-ejercicio"
+  );
+  patrimonioContainer.innerHTML = "";
+  patrimonioItems.forEach((item, index) => {
+    if (item.valor > 0) {
+      const itemElement = document.createElement("div");
+      itemElement.className = "balance-item";
+      itemElement.style.animationDelay = `${index * 0.1}s`;
+      itemElement.innerHTML = `
+        <span class="item-name">${item.nombre}</span>
+        <span class="item-value">S/ ${item.valor.toLocaleString()}</span>
+      `;
+      patrimonioContainer.appendChild(itemElement);
+    }
+  });
+
+  // Actualizar totales
+  document.getElementById(
+    "total-activos-ejercicio"
+  ).textContent = `S/ ${activos.toLocaleString()}`;
+  document.getElementById(
+    "total-pasivos-ejercicio"
+  ).textContent = `S/ ${pasivos.toLocaleString()}`;
+  document.getElementById(
+    "total-patrimonio-ejercicio"
+  ).textContent = `S/ ${patrimonio.toLocaleString()}`;
+  document.getElementById(
+    "total-pasivos-patrimonio-ejercicio"
+  ).textContent = `S/ ${(pasivos + patrimonio).toLocaleString()}`;
+
+  // Actualizar verificación
+  document.getElementById(
+    "verify-activos-ejercicio"
+  ).textContent = `S/ ${activos.toLocaleString()}`;
+  document.getElementById(
+    "verify-pasivos-patrimonio-ejercicio"
+  ).textContent = `S/ ${(pasivos + patrimonio).toLocaleString()}`;
+
+  // El estado siempre será balanceado en ejercicios correctos
+  const verificationStatus = document.getElementById(
+    "verification-status-ejercicio"
+  );
+  verificationStatus.innerHTML =
+    "✅ <strong>¡Balance Perfecto!</strong><br>Este ejercicio demuestra la ecuación contable balanceada.";
+  verificationStatus.className = "verification-status balanced";
+}
+
+function ocultarTablaBalanceEjercicio() {
+  const tablaBalance = document.getElementById("tabla-balance-ejercicio");
+  tablaBalance.style.display = "none";
+}
+
+// Generadores de datos más variados para ejercicios
+function generarActivosEjercicio(total) {
+  const tipos = [
+    { nombre: "Efectivo en Caja", min: 0.05, max: 0.15 },
+    { nombre: "Bancos", min: 0.1, max: 0.25 },
+    { nombre: "Cuentas por Cobrar", min: 0.15, max: 0.3 },
+    { nombre: "Inventario de Mercaderías", min: 0.2, max: 0.35 },
+    { nombre: "Muebles y Enseres", min: 0.05, max: 0.15 },
+    { nombre: "Equipos de Oficina", min: 0.03, max: 0.1 },
+    { nombre: "Vehículos", min: 0.1, max: 0.2 },
+  ];
+
+  // Seleccionar 3-4 tipos aleatoriamente
+  const tiposSeleccionados = tipos
+    .sort(() => 0.5 - Math.random())
+    .slice(0, Math.floor(Math.random() * 2) + 3);
+  let totalAsignado = 0;
+  const items = [];
+
+  tiposSeleccionados.forEach((tipo, index) => {
+    let porcentaje;
+    if (index === tiposSeleccionados.length - 1) {
+      // Último item: asignar el resto
+      porcentaje = (total - totalAsignado) / total;
+    } else {
+      porcentaje = tipo.min + Math.random() * (tipo.max - tipo.min);
+    }
+
+    const valor = Math.round(total * porcentaje);
+    if (valor > 0) {
+      items.push({ nombre: tipo.nombre, valor });
+      totalAsignado += valor;
+    }
+  });
+
+  return items;
+}
+
+function generarPasivosEjercicio(total) {
+  const tipos = [
+    { nombre: "Proveedores", min: 0.3, max: 0.5 },
+    { nombre: "Préstamos Bancarios", min: 0.2, max: 0.4 },
+    { nombre: "Cuentas por Pagar", min: 0.1, max: 0.25 },
+    { nombre: "Sueldos por Pagar", min: 0.05, max: 0.15 },
+    { nombre: "Impuestos por Pagar", min: 0.05, max: 0.12 },
+  ];
+
+  const tiposSeleccionados = tipos
+    .sort(() => 0.5 - Math.random())
+    .slice(0, Math.floor(Math.random() * 2) + 2);
+  let totalAsignado = 0;
+  const items = [];
+
+  tiposSeleccionados.forEach((tipo, index) => {
+    let porcentaje;
+    if (index === tiposSeleccionados.length - 1) {
+      porcentaje = (total - totalAsignado) / total;
+    } else {
+      porcentaje = tipo.min + Math.random() * (tipo.max - tipo.min);
+    }
+
+    const valor = Math.round(total * porcentaje);
+    if (valor > 0) {
+      items.push({ nombre: tipo.nombre, valor });
+      totalAsignado += valor;
+    }
+  });
+
+  return items;
+}
+
+function generarPatrimonioEjercicio(total) {
+  const tipos = [
+    { nombre: "Capital Social", min: 0.6, max: 0.8 },
+    { nombre: "Reserva Legal", min: 0.05, max: 0.15 },
+    { nombre: "Utilidades Retenidas", min: 0.1, max: 0.25 },
+    { nombre: "Utilidades del Ejercicio", min: 0.05, max: 0.2 },
+  ];
+
+  const tiposSeleccionados = tipos
+    .sort(() => 0.5 - Math.random())
+    .slice(0, Math.floor(Math.random() * 2) + 2);
+  let totalAsignado = 0;
+  const items = [];
+
+  tiposSeleccionados.forEach((tipo, index) => {
+    let porcentaje;
+    if (index === tiposSeleccionados.length - 1) {
+      porcentaje = (total - totalAsignado) / total;
+    } else {
+      porcentaje = tipo.min + Math.random() * (tipo.max - tipo.min);
+    }
+
+    const valor = Math.round(total * porcentaje);
+    if (valor > 0) {
+      items.push({ nombre: tipo.nombre, valor });
+      totalAsignado += valor;
+    }
+  });
+
+  return items;
+}

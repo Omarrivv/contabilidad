@@ -168,6 +168,72 @@
                         <p>Los resultados aparecerán aquí</p>
                     </div>
                 </div>
+
+                <div id="tabla-balance" class="balance-table-container" style="display: none;">
+                    <h3>📊 Balance General en Formato T</h3>
+                    <div class="balance-table">
+                        <div class="balance-side activos-side">
+                            <div class="balance-header">
+                                <h4>💰 ACTIVOS (A)</h4>
+                            </div>
+                            <div class="balance-content">
+                                <div class="balance-items" id="activos-items">
+                                    <!-- Los items se llenarán dinámicamente -->
+                                </div>
+                                <div class="balance-total">
+                                    <strong>Total Activos: <span id="total-activos">S/ 0</span></strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="balance-divider"></div>
+                        
+                        <div class="balance-side pasivos-patrimonio-side">
+                            <div class="balance-section pasivos-section">
+                                <div class="balance-header">
+                                    <h4>📋 PASIVOS (P)</h4>
+                                </div>
+                                <div class="balance-content">
+                                    <div class="balance-items" id="pasivos-items">
+                                        <!-- Los items se llenarán dinámicamente -->
+                                    </div>
+                                    <div class="balance-subtotal">
+                                        <strong>Total Pasivos: <span id="total-pasivos">S/ 0</span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="balance-section patrimonio-section">
+                                <div class="balance-header">
+                                    <h4>👥 PATRIMONIO (PT)</h4>
+                                </div>
+                                <div class="balance-content">
+                                    <div class="balance-items" id="patrimonio-items">
+                                        <!-- Los items se llenarán dinámicamente -->
+                                    </div>
+                                    <div class="balance-subtotal">
+                                        <strong>Total Patrimonio: <span id="total-patrimonio">S/ 0</span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="balance-total-right">
+                                <strong>Total P + PT: <span id="total-pasivos-patrimonio">S/ 0</span></strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-verification">
+                        <div class="verification-equation">
+                            <span class="verification-left">Activos: <span id="verify-activos">S/ 0</span></span>
+                            <span class="verification-equals">=</span>
+                            <span class="verification-right">Pasivos + Patrimonio: <span id="verify-pasivos-patrimonio">S/ 0</span></span>
+                        </div>
+                        <div class="verification-status" id="verification-status">
+                            <!-- Estado de verificación -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -207,8 +273,74 @@
                 </div>
 
                 <div id="resultado-ejercicio" class="exercise-result"></div>
+
+                <div id="tabla-balance-ejercicio" class="balance-table-container" style="display: none;">
+                    <h3>📊 Balance del Ejercicio en Formato T</h3>
+                    <div class="balance-table">
+                        <div class="balance-side activos-side">
+                            <div class="balance-header">
+                                <h4>💰 ACTIVOS (A)</h4>
+                            </div>
+                            <div class="balance-content">
+                                <div class="balance-items" id="activos-items-ejercicio">
+                                    <!-- Los items se llenarán dinámicamente -->
+                                </div>
+                                <div class="balance-total">
+                                    <strong>Total Activos: <span id="total-activos-ejercicio">S/ 0</span></strong>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="balance-divider"></div>
+                        
+                        <div class="balance-side pasivos-patrimonio-side">
+                            <div class="balance-section pasivos-section">
+                                <div class="balance-header">
+                                    <h4>📋 PASIVOS (P)</h4>
+                                </div>
+                                <div class="balance-content">
+                                    <div class="balance-items" id="pasivos-items-ejercicio">
+                                        <!-- Los items se llenarán dinámicamente -->
+                                    </div>
+                                    <div class="balance-subtotal">
+                                        <strong>Total Pasivos: <span id="total-pasivos-ejercicio">S/ 0</span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="balance-section patrimonio-section">
+                                <div class="balance-header">
+                                    <h4>👥 PATRIMONIO (PT)</h4>
+                                </div>
+                                <div class="balance-content">
+                                    <div class="balance-items" id="patrimonio-items-ejercicio">
+                                        <!-- Los items se llenarán dinámicamente -->
+                                    </div>
+                                    <div class="balance-subtotal">
+                                        <strong>Total Patrimonio: <span id="total-patrimonio-ejercicio">S/ 0</span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="balance-total-right">
+                                <strong>Total P + PT: <span id="total-pasivos-patrimonio-ejercicio">S/ 0</span></strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-verification">
+                        <div class="verification-equation">
+                            <span class="verification-left">Activos: <span id="verify-activos-ejercicio">S/ 0</span></span>
+                            <span class="verification-equals">=</span>
+                            <span class="verification-right">Pasivos + Patrimonio: <span id="verify-pasivos-patrimonio-ejercicio">S/ 0</span></span>
+                        </div>
+                        <div class="verification-status" id="verification-status-ejercicio">
+                            ✅ <strong>¡Balance Perfecto!</strong><br>Este ejercicio demuestra la ecuación contable balanceada.
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="stats">
+                <div class="stats"></div>
                     <div class="stat-item">
                         <span class="stat-label">Correctas:</span>
                         <span id="correctas">0</span>
