@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende Contabilidad Básica</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>📚 Aprende Contabilidad Básica</h1>
+                <p>Domina los conceptos fundamentales de la ecuación contable</p>
+            </div>
+            <div class="theme-controls">
+                <div class="theme-selector">
+                    <button class="theme-btn active" data-theme="gradient">🌈 Gradiente</button>
+                    <button class="theme-btn" data-theme="dark">🌙 Oscuro</button>
+                    <button class="theme-btn" data-theme="light">☀️ Claro</button>
+                    <button class="theme-btn" data-theme="neon">⚡ Neón</button>
+                    <button class="theme-btn" data-theme="professional">💼 Profesional</button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="conceptos">📖 Conceptos</button>
+            <button class="tab-btn" data-tab="calculadora">🧮 Calculadora</button>
+            <button class="tab-btn" data-tab="ejercicios">🎯 Ejercicios</button>
+        </nav>
+
+        <!-- Tab: Conceptos -->
+        <div id="conceptos" class="tab-content active">
+            <div class="concept-grid">
+                <div class="concept-card activos">
+                    <div class="concept-header">
+                        <h3>💰 ACTIVOS</h3>
+                        <span class="concept-symbol">A</span>
+                    </div>
+                    <div class="concept-body">
+                        <p><strong>¿Qué son?</strong> Bienes y derechos que posee la empresa</p>
+                        <ul>
+                            <li>💵 Dinero en efectivo</li>
+                            <li>🏢 Bienes materiales (edificios, terrenos)</li>
+                            <li>📦 Inventarios y mercancías</li>
+                            <li>💳 Cuentas por cobrar</li>
+                            <li>🚗 Vehículos y equipos</li>
+                        </ul>
+                        <div class="example">
+                            <strong>Ejemplo:</strong> Caja S/ 5,000, Terreno S/ 19,000
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card pasivos">
+                    <div class="concept-header">
+                        <h3>📋 PASIVOS</h3>
+                        <span class="concept-symbol">P</span>
+                    </div>
+                    <div class="concept-body">
+                        <p><strong>¿Qué son?</strong> Deudas y obligaciones de la empresa</p>
+                        <ul>
+                            <li>💸 Cuentas por pagar</li>
+                            <li>🏦 Préstamos bancarios</li>
+                            <li>📄 Deudas con proveedores</li>
+                            <li>💼 Obligaciones laborales</li>
+                            <li>🧾 Impuestos por pagar</li>
+                        </ul>
+                        <div class="example">
+                            <strong>Ejemplo:</strong> Préstamo bancario S/ 10,000, Cuentas por pagar S/ 2,900
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card patrimonio">
+                    <div class="concept-header">
+                        <h3>👥 PATRIMONIO</h3>
+                        <span class="concept-symbol">PT</span>
+                    </div>
+                    <div class="concept-body">
+                        <p><strong>¿Qué es?</strong> Lo que pertenece a los socios/propietarios</p>
+                        <ul>
+                            <li>💎 Capital inicial aportado</li>
+                            <li>📈 Ganancias acumuladas</li>
+                            <li>🔄 Reservas legales</li>
+                            <li>💰 Utilidades retenidas</li>
+                            <li>🎯 Aportes adicionales</li>
+                        </ul>
+                        <div class="example">
+                            <strong>Ejemplo:</strong> Capital inicial S/ 27,000
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="equation-section">
+                <h2>🔢 La Ecuación Fundamental</h2>
+                <div class="equation-display">
+                    <div class="equation-part activos-bg">
+                        <span class="equation-label">ACTIVOS</span>
+                        <span class="equation-value">A</span>
+                    </div>
+                    <div class="equation-operator">=</div>
+                    <div class="equation-part pasivos-bg">
+                        <span class="equation-label">PASIVOS</span>
+                        <span class="equation-value">P</span>
+                    </div>
+                    <div class="equation-operator">+</div>
+                    <div class="equation-part patrimonio-bg">
+                        <span class="equation-label">PATRIMONIO</span>
+                        <span class="equation-value">PT</span>
+                    </div>
+                </div>
+                <div class="equation-example">
+                    <p><strong>Ejemplo práctico:</strong></p>
+                    <div class="example-calculation animated-equation">
+                        <span class="equation-part-inline activos-text">S/ 50,000</span>
+                        <span class="equation-equals">=</span>
+                        <span class="equation-part-inline pasivos-text">S/ 25,000</span>
+                        <span class="equation-plus">+</span>
+                        <span class="equation-part-inline patrimonio-text">S/ 25,000</span>
+                    </div>
+                    <div class="balance-check">
+                        <span class="check-icon">✅</span>
+                        <span>El balance está correcto: 50,000 = 50,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Calculadora -->
+        <div id="calculadora" class="tab-content">
+            <div class="calculator-section">
+                <h2>🧮 Calculadora de Balance</h2>
+                <p>Ingresa dos valores y calcula automáticamente el tercero</p>
+                
+                <div class="calculator-grid">
+                    <div class="calc-input activos-bg">
+                        <label>💰 Activos (A)</label>
+                        <input type="number" id="activos" placeholder="Ej: 50000">
+                        <span class="currency">S/</span>
+                    </div>
+                    
+                    <div class="calc-input pasivos-bg">
+                        <label>📋 Pasivos (P)</label>
+                        <input type="number" id="pasivos" placeholder="Ej: 25000">
+                        <span class="currency">S/</span>
+                    </div>
+                    
+                    <div class="calc-input patrimonio-bg">
+                        <label>👥 Patrimonio (PT)</label>
+                        <input type="number" id="patrimonio" placeholder="Ej: 25000">
+                        <span class="currency">S/</span>
+                    </div>
+                </div>
+
+                <div class="calculator-buttons">
+                    <button id="calcular" class="btn-primary">🔢 Calcular Valor Faltante</button>
+                    <button id="verificar" class="btn-secondary">✅ Verificar Balance</button>
+                    <button id="limpiar" class="btn-clear">🗑️ Limpiar</button>
+                </div>
+
+                <div id="resultado" class="result-display">
+                    <div class="result-placeholder">
+                        <span class="placeholder-icon">🧮</span>
+                        <p>Los resultados aparecerán aquí</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Ejercicios -->
+        <div id="ejercicios" class="tab-content">
+            <div class="exercise-section">
+                <h2>🎯 Ejercicios Prácticos</h2>
+                <p>Practica con ejercicios aleatorios y verifica tus respuestas</p>
+                
+                <div class="exercise-controls">
+                    <button id="nuevo-ejercicio" class="btn-primary">🎲 Nuevo Ejercicio</button>
+                    <div class="difficulty-selector">
+                        <label>Dificultad:</label>
+                        <select id="dificultad">
+                            <option value="facil">Fácil (1,000 - 10,000)</option>
+                            <option value="medio">Medio (10,000 - 100,000)</option>
+                            <option value="dificil">Difícil (100,000 - 1,000,000)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="ejercicio-actual" class="exercise-display">
+                    <div class="exercise-placeholder">
+                        <span class="placeholder-icon">🎯</span>
+                        <p>Haz clic en "Nuevo Ejercicio" para comenzar</p>
+                        <div class="placeholder-animation">
+                            <div class="pulse-dot"></div>
+                            <div class="pulse-dot"></div>
+                            <div class="pulse-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="respuesta-ejercicio" class="exercise-answer">
+                    <input type="number" id="respuesta-usuario" placeholder="Tu respuesta">
+                    <button id="verificar-respuesta" class="btn-secondary">✅ Verificar</button>
+                </div>
+
+                <div id="resultado-ejercicio" class="exercise-result"></div>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Correctas:</span>
+                        <span id="correctas">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Incorrectas:</span>
+                        <span id="incorrectas">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Precisión:</span>
+                        <span id="precision">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
